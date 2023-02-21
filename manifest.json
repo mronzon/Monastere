@@ -1,0 +1,21 @@
+{
+	"manifest_version": 2,
+
+	"name": "Asura Updater",
+	"description": "Une petite extension pour se tenir informer des dernières sorties des meilleurs manga de Asura",
+	"version": "0.1",
+	"background": {
+		"scripts": ["background.js"]
+	},
+
+	"permissions": ["tabs", "contextMenus", "https://www.asurascans.com/*", "https://cdn.jsdelivr.net/*"],
+	"browser_action": {
+		"default_icon": "manga.png",
+		"default_title": "Go to Dev.Opera!"
+	},
+    "sidebar_action": {
+		"default_icon": "manga.png",
+		"default_title" : "Manga toshokan",
+		"default_panel": "WebPage/index.html"
+	}
+}
