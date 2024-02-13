@@ -16,5 +16,10 @@
       "*": ["node_modules/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": [
+      "./plugins/**/*",
+      "./typings/**/*",
+      "./dist/**/*" // This is what fixed it!
+  ]
 }
