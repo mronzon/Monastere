@@ -1,14 +1,20 @@
-import { HStack, Image } from '@chakra-ui/react'
+import { HStack } from "@chakra-ui/react";
 import { TbBooks } from "react-icons/tb";
-import ThemeButton from './ThemeButton';
+import ThemeButton from "./ThemeButton";
+import SearchInput from "./SearchInput";
 
-const NavBar = () => {
-  return (
-    <HStack justifyContent="space-between" padding="10px">
-      <TbBooks size={"40px"}/>
-      <ThemeButton />
-    </HStack>
-  )
+interface Props {
+  setPage: (pageId: number) => void;
 }
 
-export default NavBar
+const NavBar = ({ setPage }: Props) => {
+  return (
+    <HStack justifyContent="space-between" padding="10px">
+      <TbBooks size={"40px"} onClick={() => setPage(1)} />
+      <SearchInput onSearch={(onSearch: string) => console.log(onSearch)} />
+      <ThemeButton />
+    </HStack>
+  );
+};
+
+export default NavBar;
