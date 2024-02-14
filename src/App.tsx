@@ -2,6 +2,7 @@ import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import OptionList from "./components/OptionList";
 import { useState } from "react";
+import ManwhaGrid from "./components/ManwhaDisplay/ManwhaGrid";
 
 export interface ManwhaQuery {
   sortOrder: string;
@@ -9,6 +10,7 @@ export interface ManwhaQuery {
 }
 
 const App = () => {
+  const [query, setQuery] = useState<ManwhaQuery>({} as ManwhaQuery);
   const [pageSelected, setPage] = useState(1);
 
   return (
@@ -23,7 +25,10 @@ const App = () => {
       }}
     >
       <GridItem area="nav">
-        <NavBar setPage={setPage} />
+        <NavBar
+          setPage={setPage}
+          onSearch={(searchText: string) => setQuery({ ...query, searchText })}
+        />
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
@@ -35,8 +40,8 @@ const App = () => {
           Aside
         </GridItem>
       </Show>
-      <GridItem area="main" backgroundColor="red">
-        Main
+      <GridItem area="main">
+        <ManwhaGrid />
       </GridItem>
     </Grid>
   );

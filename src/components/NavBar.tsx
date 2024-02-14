@@ -5,13 +5,14 @@ import SearchInput from "./SearchInput";
 
 interface Props {
   setPage: (pageId: number) => void;
+  onSearch: (searchText: string) => void;
 }
 
-const NavBar = ({ setPage }: Props) => {
+const NavBar = ({ setPage, onSearch }: Props) => {
   return (
     <HStack justifyContent="space-between" padding="10px">
       <TbBooks size={"40px"} onClick={() => setPage(1)} />
-      <SearchInput onSearch={(onSearch: string) => console.log(onSearch)} />
+      <SearchInput onSearch={onSearch} />
       <ThemeButton />
     </HStack>
   );
