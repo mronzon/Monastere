@@ -1,5 +1,4 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
-import React from "react";
 import ManwhaCardSkeleton from "./ManwhaCardSkeleton";
 
 const ManwhaGrid = () => {

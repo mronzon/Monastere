@@ -1,4 +1,4 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Heading, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import OptionList from "./components/OptionList";
 import { useState } from "react";
@@ -16,7 +16,7 @@ const App = () => {
   return (
     <Grid
       templateAreas={{
-        base: `"nav" "main" "aside"`,
+        base: `"nav" "aside" "main" `,
         lg: `"nav nav" "aside main"`,
       }}
       templateColumns={{
@@ -32,12 +32,20 @@ const App = () => {
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
-          <OptionList pageSelected={pageSelected} setPage={setPage} />
+          <OptionList
+            pageSelected={pageSelected}
+            setPage={setPage}
+            bottom={false}
+          />
         </GridItem>
       </Show>
       <Show below="lg">
-        <GridItem area="aside" backgroundColor="blue">
-          Aside
+        <GridItem area="aside">
+          <OptionList
+            pageSelected={pageSelected}
+            setPage={setPage}
+            bottom={true}
+          />
         </GridItem>
       </Show>
       <GridItem area="main">
