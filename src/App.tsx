@@ -1,8 +1,9 @@
 import { Box, Grid, GridItem, Heading, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
-import OptionList from "./components/OptionList";
+import PageList from "./components/PageList";
 import { useState } from "react";
-import ManwhaGrid from "./components/ManwhaDisplay/ManwhaGrid";
+import ManwhaGrid from "./components/MainDisplay/ManwhaDisplay/ManwhaGrid";
+import MainItem from "./components/MainDisplay/MainItem";
 
 export interface ManwhaQuery {
   sortOrder: string;
@@ -32,7 +33,7 @@ const App = () => {
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
-          <OptionList
+          <PageList
             pageSelected={pageSelected}
             setPage={setPage}
             bottom={false}
@@ -41,7 +42,7 @@ const App = () => {
       </Show>
       <Show below="lg">
         <GridItem area="aside">
-          <OptionList
+          <PageList
             pageSelected={pageSelected}
             setPage={setPage}
             bottom={true}
@@ -49,7 +50,7 @@ const App = () => {
         </GridItem>
       </Show>
       <GridItem area="main">
-        <ManwhaGrid />
+        <MainItem pageSelected={pageSelected} />
       </GridItem>
     </Grid>
   );
