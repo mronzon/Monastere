@@ -1,13 +1,5 @@
-import {
-  HStack,
-  Heading,
-  ListItem,
-  List,
-  Button,
-  Spinner,
-} from "@chakra-ui/react";
-import usePages from "../hooks/useOptions";
-
+import { HStack, Heading, ListItem, List, Button } from "@chakra-ui/react";
+import pageData from "../data/pages";
 interface Props {
   pageSelected: number;
   setPage: (pageId: number) => void;
@@ -15,10 +7,6 @@ interface Props {
 }
 
 const PageList = ({ pageSelected, setPage, bottom }: Props) => {
-  const { data, isLoading } = usePages();
-
-  if (isLoading) return <Spinner />;
-
   return (
     <>
       {!bottom && (
@@ -27,15 +15,16 @@ const PageList = ({ pageSelected, setPage, bottom }: Props) => {
             Pages
           </Heading>
           <List>
-            {data.map((page) => (
+            {pageData.map((page) => (
               <ListItem key={page.id} paddingY="5px">
                 <HStack>
                   <Button
-                    size={"md"}
-                    width={"60%"}
+                    width={"100%"}
                     onClick={() => setPage(page.id)}
                     fontSize="md"
                     colorScheme={page.id === pageSelected ? "blue" : "gray"}
+                    leftIcon={page.icon}
+                    variant={"ghost"}
                   >
                     {page.name}
                   </Button>
