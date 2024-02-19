@@ -90,3 +90,9 @@ typings/
 
 # Electron-Forge
 out/
+
+#Idea
+*.idea/
+
+#Python
+*__pycache__/

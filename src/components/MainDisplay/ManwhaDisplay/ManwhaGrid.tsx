@@ -1,7 +1,14 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import ManwhaCardSkeleton from "./ManwhaCardSkeleton";
+import Manwha from "../../../data/manwha";
+import ManwhaCard from "./ManwhaCard";
 
-const ManwhaGrid = () => {
+interface Props {
+  loading: boolean;
+  data: Manwha[];
+}
+
+const ManwhaGrid = ({ loading, data }: Props) => {
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (
@@ -10,11 +17,18 @@ const ManwhaGrid = () => {
       padding={"10px"}
       spacing={6}
     >
-      {skeletons.map((skeleton) => (
-        <Box borderRadius={10} key={skeleton} overflow="hidden">
-          <ManwhaCardSkeleton />
-        </Box>
-      ))}
+      {loading &&
+        skeletons.map((skeleton) => (
+          <Box borderRadius={10} key={skeleton} overflow="hidden">
+            <ManwhaCardSkeleton />
+          </Box>
+        ))}
+      {!loading &&
+        data.map((item, indice) => (
+          <Box borderRadius={10} key={indice} overflow="hidden">
+            <ManwhaCard manwha={item} />
+          </Box>
+        ))}
     </SimpleGrid>
   );
 };

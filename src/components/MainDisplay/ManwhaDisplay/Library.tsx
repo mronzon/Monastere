@@ -1,7 +1,5 @@
-import ManwhaGrid from "./ManwhaGrid";
-
 const Library = () => {
-  return <ManwhaGrid />;
+  return <div>Library</div>;
 };
 
 export default Library;
