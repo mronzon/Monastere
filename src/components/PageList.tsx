@@ -1,6 +1,5 @@
 import {
   HStack,
-  VStack,
   Heading,
   ListItem,
   List,
@@ -15,7 +14,7 @@ interface Props {
   bottom: boolean;
 }
 
-const OptionList = ({ pageSelected, setPage, bottom }: Props) => {
+const PageList = ({ pageSelected, setPage, bottom }: Props) => {
   const { data, isLoading } = usePages();
 
   if (isLoading) return <Spinner />;
@@ -65,4 +64,4 @@ const OptionList = ({ pageSelected, setPage, bottom }: Props) => {
   );
 };
 
-export default OptionList;
+export default PageList;

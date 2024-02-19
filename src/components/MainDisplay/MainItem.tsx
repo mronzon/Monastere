@@ -1,4 +1,3 @@
-import React from "react";
 import Library from "./ManwhaDisplay/Library";
 import MajDisplay from "./MajDisplay";
 import Explorer from "./ManwhaDisplay/Explorer";

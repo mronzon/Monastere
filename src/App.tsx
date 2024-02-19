@@ -1,8 +1,7 @@
-import { Box, Grid, GridItem, Heading, Show } from "@chakra-ui/react";
+import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import PageList from "./components/PageList";
 import { useState } from "react";
-import ManwhaGrid from "./components/MainDisplay/ManwhaDisplay/ManwhaGrid";
 import MainItem from "./components/MainDisplay/MainItem";
 
 export interface ManwhaQuery {

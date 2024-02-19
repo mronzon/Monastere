@@ -1,7 +1,7 @@
-import React from "react";
+import ManwhaGrid from "./ManwhaGrid";
 
 const Library = () => {
-  return <div>Library</div>;
+  return <ManwhaGrid />;
 };
 
 export default Library;
