@@ -25,9 +25,11 @@ const ManwhaGrid = ({ loading, data }: Props) => {
         ))}
       {!loading &&
         data.map((item, indice) => (
-          <Box borderRadius={10} key={indice} overflow="hidden">
-            <ManwhaCard manwha={item} />
-          </Box>
+          <ManwhaCard
+            manwha={item}
+            key={indice}
+            onClick={() => console.log(item.name)}
+          />
         ))}
     </SimpleGrid>
   );

@@ -36,12 +36,13 @@ const PageList = ({ pageSelected, setPage, bottom }: Props) => {
       )}
       {bottom && (
         <HStack padding={"10px"} justifyContent={"space-between"}>
-          {data.map((page) => (
+          {pageData.map((page) => (
             <Button
               size={"md"}
               onClick={() => setPage(page.id)}
               fontSize="md"
               colorScheme={page.id === pageSelected ? "blue" : "gray"}
+              leftIcon={page.icon}
               key={page.id}
             >
               {page.name}

@@ -1,19 +1,32 @@
-import { Card, CardBody, Heading, Image, Text } from "@chakra-ui/react";
+import { Card, CardBody, Heading, Image, Box, Circle } from "@chakra-ui/react";
 import Manwha from "../../../data/manwha";
 
 interface Props {
   manwha: Manwha;
+  onClick: () => void;
 }
 
-const ManwhaCard = ({ manwha }: Props) => {
+const ManwhaCard = ({ manwha, onClick }: Props) => {
   return (
-    <Card>
-      <Image src={manwha.image} />
-      <CardBody>
-        <Heading fontSize="md">{manwha.name}</Heading>
-        <Text fontSize="md">Chapter {manwha.chapter}</Text>
-      </CardBody>
-    </Card>
+    <Box borderRadius={10} overflow="hidden" onClick={onClick}>
+      <Card>
+        <Image src={manwha.image} boxSize="sm" />
+        <Circle
+          bg="red"
+          color="white"
+          position="absolute"
+          float="left"
+          top="4"
+          left="4"
+          fontWeight="bold"
+        >
+          {manwha.chapter}
+        </Circle>
+        <CardBody>
+          <Heading fontSize="md">{manwha.name}</Heading>
+        </CardBody>
+      </Card>
+    </Box>
   );
 };
 
