@@ -36,3 +36,30 @@ class Asura(Scrapping):
         self.data = result
         return result
 
+    def get_chapter_info(self, url: str):
+        result = {"chapters": [], "description": ""}
+
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            divs = soup.find('div', class_='entry-content entry-content-single')
+            ps = divs.find_all('p')
+            desc = ""
+            for p in ps:
+                desc += p.get_text()
+            result["description"] = desc
+            ul = soup.find('div', id='chapterlist').find('ul')
+            lis = ul.find_all('li')
+            chapters = []
+            for li in lis:
+                chapter = {"link": li.find('a').get('href'), "number": li.find("span", class_="chapternum").text,
+                           "date": li.find("span", class_="chapterdate").text}
+                chapters.append(chapter)
+            result["chapters"] = chapters
+
+        else:
+            return "ERROR"
+
+        return result
+

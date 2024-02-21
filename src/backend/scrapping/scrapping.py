@@ -8,6 +8,9 @@ class Scrapping:
     def scrap(self):
         pass
 
+    def get_chapter_info(self, url: str):
+        pass
+
 
 def strip_string(text):
     result = []
