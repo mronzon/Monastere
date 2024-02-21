@@ -25,6 +25,7 @@ const PageList = ({ pageSelected, setPage, bottom }: Props) => {
                     colorScheme={page.id === pageSelected ? "blue" : "gray"}
                     leftIcon={page.icon}
                     variant={"ghost"}
+                    justifyContent="left"
                   >
                     {page.name}
                   </Button>
