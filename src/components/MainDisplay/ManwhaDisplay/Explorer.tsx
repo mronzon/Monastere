@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import Manwha from "../../../data/manwha";
 import ManwhaGrid from "./ManwhaGrid";
 
-const Explorer = () => {
+interface Props {
+  selectManwha: (manwha: Manwha) => void;
+}
+
+const Explorer = ({ selectManwha }: Props) => {
   const [loading, setLoading] = useState(true);
   const [manwhas, setManwhas] = useState<Manwha[]>([]);
 
@@ -22,7 +26,9 @@ const Explorer = () => {
       });
   }, []);
 
-  return <ManwhaGrid loading={loading} data={manwhas} />;
+  return (
+    <ManwhaGrid loading={loading} data={manwhas} selectManwha={selectManwha} />
+  );
 };
 
 export default Explorer;
