@@ -1,4 +1,4 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Grid, GridItem, Show, useColorModeValue } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import PageList from "./components/PageList";
 import { useState } from "react";
@@ -13,6 +13,8 @@ const App = () => {
   const [query, setQuery] = useState<ManwhaQuery>({} as ManwhaQuery);
   const [pageSelected, setPage] = useState(1);
 
+  const color = useColorModeValue("white", "gray.800");
+
   return (
     <Grid
       templateAreas={{
@@ -24,7 +26,14 @@ const App = () => {
         lg: "250px 1fr",
       }}
     >
-      <GridItem area="nav">
+      <GridItem
+        area="nav"
+        position="sticky"
+        top={0}
+        opacity={1}
+        zIndex={1}
+        backgroundColor={color}
+      >
         <NavBar
           setPage={setPage}
           onSearch={(searchText: string) => setQuery({ ...query, searchText })}
