@@ -4,6 +4,8 @@ import Explorer from "./ManwhaDisplay/Explorer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Manwha from "../../data/manwha";
+import SimpleManwha from "./ManwhaDisplay/SimpleManwha";
+import ManwhaInfo from "../../data/manwhaInfo";
 
 interface Prop {
   pageSelected: number;
@@ -11,6 +13,7 @@ interface Prop {
 
 const MainItem = ({ pageSelected }: Prop) => {
   const [manwhaSelected, setManwha] = useState<Manwha>();
+  const [manwhaInfo, setManwhaInfo] = useState<ManwhaInfo>();
 
   useEffect(() => {
     if (manwhaSelected !== undefined) {
@@ -19,17 +22,26 @@ const MainItem = ({ pageSelected }: Prop) => {
         source: "Asura",
       });
       axios
-        .post("http://127.0.0.1:9000/api/get-chapters", json, {
+        .post<ManwhaInfo>("http://127.0.0.1:9000/api/get-chapters", json, {
           headers: { "Content-Type": "application/json" },
         })
         .then((res) => {
-          console.log(res);
+          setManwhaInfo(res.data);
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }, [manwhaSelected]);
+
+  useEffect(() => {
+    setManwha(undefined);
+    setManwhaInfo(undefined);
+  }, [pageSelected]);
+
+  if (manwhaSelected !== undefined && manwhaInfo !== undefined) {
+    return <SimpleManwha manwha={manwhaSelected} manwhaInfo={manwhaInfo} />;
+  }
 
   switch (pageSelected) {
     case 1:
