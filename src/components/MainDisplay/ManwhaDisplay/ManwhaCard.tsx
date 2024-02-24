@@ -16,11 +16,11 @@ const ManwhaCard = ({ manwha, onClick }: Props) => {
           color="white"
           position="absolute"
           float="left"
-          top="4"
-          left="4"
+          top="2"
+          left="2"
           fontWeight="bold"
         >
-          {manwha.chapter}
+          {"‎ " + manwha.chapter + " ‎"}
         </Circle>
         <CardBody>
           <Heading fontSize="md">{manwha.name}</Heading>
