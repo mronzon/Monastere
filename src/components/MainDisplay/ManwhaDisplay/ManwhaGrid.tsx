@@ -6,10 +6,9 @@ import ManwhaCard from "./ManwhaCard";
 interface Props {
   loading: boolean;
   data: Manwha[];
-  selectManwha: (manwha: Manwha) => void;
 }
 
-const ManwhaGrid = ({ loading, data, selectManwha }: Props) => {
+const ManwhaGrid = ({ loading, data }: Props) => {
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (
@@ -29,7 +28,7 @@ const ManwhaGrid = ({ loading, data, selectManwha }: Props) => {
           <ManwhaCard
             manwha={item}
             key={indice}
-            onClick={() => selectManwha(item)}
+            onClick={() => console.log(item.name)}
           />
         ))}
     </SimpleGrid>

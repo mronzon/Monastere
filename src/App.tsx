@@ -2,7 +2,8 @@ import { Grid, GridItem, Show, useColorModeValue } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import PageList from "./components/PageList";
 import { useState } from "react";
-import MainItem from "./components/MainDisplay/MainItem";
+import Browser from "./components/pages/Browser";
+import { useNavigate } from "react-router-dom";
 
 export interface ManwhaQuery {
   sortOrder: string;
@@ -11,9 +12,16 @@ export interface ManwhaQuery {
 
 const App = () => {
   const [query, setQuery] = useState<ManwhaQuery>({} as ManwhaQuery);
-  const [pageSelected, setPage] = useState(1);
+  const [pageSelected, setPage] = useState("/");
+  const navigate = useNavigate();
 
   const color = useColorModeValue("white", "gray.800");
+
+  const changePage = (page: string) => {
+    console.log(page);
+    setPage(page);
+    navigate(page);
+  };
 
   return (
     <Grid
@@ -35,7 +43,7 @@ const App = () => {
         backgroundColor={color}
       >
         <NavBar
-          setPage={setPage}
+          setPage={changePage}
           onSearch={(searchText: string) => setQuery({ ...query, searchText })}
         />
       </GridItem>
@@ -43,7 +51,7 @@ const App = () => {
         <GridItem area="aside" paddingX={5}>
           <PageList
             pageSelected={pageSelected}
-            setPage={setPage}
+            setPage={changePage}
             bottom={false}
           />
         </GridItem>
@@ -52,13 +60,13 @@ const App = () => {
         <GridItem area="aside">
           <PageList
             pageSelected={pageSelected}
-            setPage={setPage}
+            setPage={changePage}
             bottom={true}
           />
         </GridItem>
       </Show>
       <GridItem area="main">
-        <MainItem pageSelected={pageSelected} />
+        <Browser />
       </GridItem>
     </Grid>
   );

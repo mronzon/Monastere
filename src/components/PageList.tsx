@@ -1,8 +1,8 @@
 import { HStack, Heading, ListItem, List, Button } from "@chakra-ui/react";
 import pageData from "../data/pages";
 interface Props {
-  pageSelected: number;
-  setPage: (pageId: number) => void;
+  pageSelected: string;
+  setPage: (pageId: string) => void;
   bottom: boolean;
 }
 
@@ -20,9 +20,9 @@ const PageList = ({ pageSelected, setPage, bottom }: Props) => {
                 <HStack>
                   <Button
                     width={"100%"}
-                    onClick={() => setPage(page.id)}
+                    onClick={() => setPage(page.root)}
                     fontSize="md"
-                    colorScheme={page.id === pageSelected ? "blue" : "gray"}
+                    colorScheme={page.root === pageSelected ? "blue" : "gray"}
                     leftIcon={page.icon}
                     variant={"ghost"}
                     justifyContent="left"
@@ -40,9 +40,9 @@ const PageList = ({ pageSelected, setPage, bottom }: Props) => {
           {pageData.map((page) => (
             <Button
               size={"md"}
-              onClick={() => setPage(page.id)}
+              onClick={() => setPage(page.root)}
               fontSize="md"
-              colorScheme={page.id === pageSelected ? "blue" : "gray"}
+              colorScheme={page.root === pageSelected ? "blue" : "gray"}
               leftIcon={page.icon}
               key={page.id}
             >

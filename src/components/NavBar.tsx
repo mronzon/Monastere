@@ -4,14 +4,14 @@ import ThemeButton from "./ThemeButton";
 import SearchInput from "./SearchInput";
 
 interface Props {
-  setPage: (pageId: number) => void;
+  setPage: (pageId: string) => void;
   onSearch: (searchText: string) => void;
 }
 
 const NavBar = ({ setPage, onSearch }: Props) => {
   return (
     <HStack justifyContent="space-between" padding="10px">
-      <TbBooks size={"40px"} onClick={() => setPage(1)} />
+      <TbBooks size={"40px"} onClick={() => setPage("/")} />
       <SearchInput onSearch={onSearch} />
       <ThemeButton />
     </HStack>

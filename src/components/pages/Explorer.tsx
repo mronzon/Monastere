@@ -1,13 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Manwha from "../../../data/manwha";
-import ManwhaGrid from "./ManwhaGrid";
+import Manwha from "../../data/manwha";
+import ManwhaGrid from "../MainDisplay/ManwhaDisplay/ManwhaGrid";
 
-interface Props {
-  selectManwha: (manwha: Manwha) => void;
-}
-
-const Explorer = ({ selectManwha }: Props) => {
+const Explorer = () => {
   const [loading, setLoading] = useState(true);
   const [manwhas, setManwhas] = useState<Manwha[]>([]);
 
@@ -26,9 +22,7 @@ const Explorer = ({ selectManwha }: Props) => {
       });
   }, []);
 
-  return (
-    <ManwhaGrid loading={loading} data={manwhas} selectManwha={selectManwha} />
-  );
+  return <ManwhaGrid loading={loading} data={manwhas} />;
 };
 
 export default Explorer;

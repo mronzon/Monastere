@@ -1,10 +1,10 @@
-import Library from "./ManwhaDisplay/Library";
-import MajDisplay from "./MajDisplay";
-import Explorer from "./ManwhaDisplay/Explorer";
+import Library from "../pages/Library";
+import MajDisplay from "../pages/MajDisplay";
+import Explorer from "../pages/Explorer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Manwha from "../../data/manwha";
-import SimpleManwha from "./ManwhaDisplay/SimpleManwha";
+import SimpleManwha from "../pages/SimpleManwha";
 import ManwhaInfo from "../../data/manwhaInfo";
 
 interface Prop {
@@ -49,7 +49,7 @@ const MainItem = ({ pageSelected }: Prop) => {
     case 2:
       return <MajDisplay />;
     case 3:
-      return <Explorer selectManwha={setManwha} />;
+      return <Explorer />;
     default:
       return <div>Erreur dans le choix de la page</div>;
   }

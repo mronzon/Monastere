@@ -6,8 +6,8 @@ import {
   StackDivider,
   Card,
 } from "@chakra-ui/react";
-import Manwha from "../../../data/manwha";
-import ManwhaInfo from "../../../data/manwhaInfo";
+import Manwha from "../../data/manwha";
+import ManwhaInfo from "../../data/manwhaInfo";
 
 interface Props {
   manwhaInfo: ManwhaInfo;
