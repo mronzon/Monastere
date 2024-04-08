@@ -7,16 +7,20 @@ import {
   Card,
   VStack,
   Heading,
+  AbsoluteCenter,
+  Spinner,
 } from "@chakra-ui/react";
 import Manwha from "../../data/manwha";
 import ManwhaInfo from "../../data/manwhaInfo";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SimpleManwha = () => {
   const [manwhaInfo, setManwhaInfo] = useState<ManwhaInfo>();
   const [manwha, setManwha] = useState<Manwha>();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const elt = localStorage.getItem("showManwha");
@@ -41,7 +45,17 @@ const SimpleManwha = () => {
     }
   }, []);
 
-  if (loading) return <div>Loading</div>;
+  const viewChapter = (chapter: string) => {
+    localStorage.setItem("chapter", JSON.stringify(chapter));
+    navigate("/viewchapter");
+  };
+
+  if (loading)
+    return (
+      <AbsoluteCenter axis="both">
+        <Spinner size="xl" />
+      </AbsoluteCenter>
+    );
 
   return (
     <>
@@ -56,7 +70,7 @@ const SimpleManwha = () => {
 
       <Stack divider={<StackDivider />} spacing={3}>
         {manwhaInfo?.chapters.map((item, index) => (
-          <Card key={index}>
+          <Card key={index} onClick={() => viewChapter(item.link)}>
             <Text fontSize="xl" as="b">
               {item.number}
             </Text>

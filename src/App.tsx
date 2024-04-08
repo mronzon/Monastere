@@ -18,7 +18,6 @@ const App = () => {
   const color = useColorModeValue("white", "gray.800");
 
   const changePage = (page: string) => {
-    console.log(page);
     setPage(page);
     navigate(page);
   };
@@ -66,7 +65,7 @@ const App = () => {
         </GridItem>
       </Show>
       <GridItem area="main">
-        <Browser />
+        <Browser searchText={query.searchText} />
       </GridItem>
     </Grid>
   );

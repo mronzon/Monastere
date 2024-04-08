@@ -3,25 +3,53 @@ import { useEffect, useState } from "react";
 import Manwha from "../../data/manwha";
 import ManwhaGrid from "../MainDisplay/ManwhaDisplay/ManwhaGrid";
 import { useNavigate } from "react-router-dom";
+import { Box, Heading } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from "@chakra-ui/react";
 
-const Explorer = () => {
+interface DataManwha {
+  source: string;
+  data: Manwha[];
+}
+
+interface Props {
+  searchText: string;
+}
+
+const Explorer = ({ searchText }: Props) => {
   const [loading, setLoading] = useState(true);
-  const [manwhas, setManwhas] = useState<Manwha[]>([]);
+  const [manwhas, setManwhas] = useState<DataManwha[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get("http://127.0.0.1:9000/api/get-manwha", {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((res) => {
-        setLoading(false);
-        setManwhas(res.data["Asura"]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (manwhas.length !== 0) {
+      return;
+    }
+    const elt = localStorage.getItem("manwhas");
+    if (elt !== null) {
+      setManwhas(JSON.parse(elt));
+      console.log(JSON.parse(elt));
+      setLoading(false);
+    } else {
+      setLoading(true);
+      axios
+        .get("http://127.0.0.1:9000/api/get-manwha", {
+          headers: { "Content-Type": "application/json" },
+        })
+        .then((res) => {
+          setLoading(false);
+          setManwhas(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -34,9 +62,28 @@ const Explorer = () => {
     localStorage.setItem("showManwha", JSON.stringify(manwha));
     navigate("/simpleManwha");
   };
-
+  console.log(searchText);
   return (
-    <ManwhaGrid loading={loading} data={manwhas} showManwha={viewManwha} />
+    <Accordion allowToggle>
+      {manwhas.map((item, index) => (
+        <AccordionItem key={index}>
+          <AccordionButton>
+            <Box as="span" flex="1" textAlign="left">
+              <Heading>{item.source}</Heading>
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+
+          <AccordionPanel pb={4}>
+            <ManwhaGrid
+              loading={loading}
+              data={item.data}
+              showManwha={viewManwha}
+            />
+          </AccordionPanel>
+        </AccordionItem>
+      ))}
+    </Accordion>
   );
 };
 
