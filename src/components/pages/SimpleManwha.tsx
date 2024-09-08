@@ -29,10 +29,9 @@ const SimpleManwha = () => {
       const m = JSON.parse(elt);
       const json = JSON.stringify({
         url: m?.link,
-        source: "Asura",
       });
       axios
-        .post<ManwhaInfo>("http://127.0.0.1:9000/api/get-chapters", json, {
+        .post<ManwhaInfo>("http://127.0.0.1:8000/api/get-chapters", json, {
           headers: { "Content-Type": "application/json" },
         })
         .then((res) => {
@@ -45,8 +44,9 @@ const SimpleManwha = () => {
     }
   }, []);
 
-  const viewChapter = (chapter: string) => {
-    localStorage.setItem("chapter", JSON.stringify(chapter));
+  const viewChapter = (chapter: string, number: string) => {
+    localStorage.setItem("chapterLink", JSON.stringify(chapter));
+    localStorage.setItem("chapterNumber", JSON.stringify(number));
     navigate("/viewchapter");
   };
 
@@ -56,7 +56,7 @@ const SimpleManwha = () => {
         <Spinner size="xl" />
       </AbsoluteCenter>
     );
-
+  console.log(manwhaInfo);
   return (
     <>
       <HStack>
@@ -70,7 +70,7 @@ const SimpleManwha = () => {
 
       <Stack divider={<StackDivider />} spacing={3}>
         {manwhaInfo?.chapters.map((item, index) => (
-          <Card key={index} onClick={() => viewChapter(item.link)}>
+          <Card key={index} onClick={() => viewChapter(item.link, item.number)}>
             <Text fontSize="xl" as="b">
               {item.number}
             </Text>

@@ -4,6 +4,7 @@ import PageList from "./components/PageList";
 import { useState } from "react";
 import Browser from "./components/pages/Browser";
 import { useNavigate } from "react-router-dom";
+import Login from "./Login";
 
 export interface ManwhaQuery {
   sortOrder: string;
@@ -13,15 +14,17 @@ export interface ManwhaQuery {
 const App = () => {
   const [query, setQuery] = useState<ManwhaQuery>({} as ManwhaQuery);
   const [pageSelected, setPage] = useState("/");
+  const [userID, setUserID] = useState(-1);
   const navigate = useNavigate();
-
   const color = useColorModeValue("white", "gray.800");
 
   const changePage = (page: string) => {
     setPage(page);
     navigate(page);
   };
-
+  if (userID === -1) {
+    return <Login setUserID={setUserID} />;
+  }
   return (
     <Grid
       templateAreas={{

@@ -38,7 +38,7 @@ const Explorer = ({ searchText }: Props) => {
     } else {
       setLoading(true);
       axios
-        .get("http://127.0.0.1:9000/api/get-manwha", {
+        .get("http://127.0.0.1:8000/api/get-manwha", {
           headers: { "Content-Type": "application/json" },
         })
         .then((res) => {
@@ -64,12 +64,14 @@ const Explorer = ({ searchText }: Props) => {
   };
   console.log(searchText);
   return (
-    <Accordion allowToggle>
+    <Accordion allowMultiple>
       {manwhas.map((item, index) => (
         <AccordionItem key={index}>
           <AccordionButton>
             <Box as="span" flex="1" textAlign="left">
-              <Heading>{item.source}</Heading>
+              <Heading>
+                {item.source} ({item.data.length})
+              </Heading>
             </Box>
             <AccordionIcon />
           </AccordionButton>

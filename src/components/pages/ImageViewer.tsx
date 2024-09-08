@@ -7,15 +7,17 @@ const ImageViewer = () => {
   const [chapter, setChapter] = useState("");
 
   useEffect(() => {
-    const elt = localStorage.getItem("chapter");
-    if (elt !== null) {
-      setChapter(elt);
+    const link = localStorage.getItem("chapterLink");
+    const number = localStorage.getItem("chapterNumber");
+    if (link !== null && number !== null) {
+      setChapter(link);
       const json = JSON.stringify({
-        url: elt,
+        url: link,
+        chapter: number,
         source: "Asura",
       });
       axios
-        .post("http://127.0.0.1:9000/api/get-images-chapter", json, {
+        .post("http://127.0.0.1:8000/api/get-images-chapter", json, {
           headers: { "Content-Type": "application/json" },
         })
         .then((res) => {

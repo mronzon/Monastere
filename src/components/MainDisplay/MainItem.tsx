@@ -22,7 +22,7 @@ const MainItem = ({ pageSelected }: Prop) => {
         source: "Asura",
       });
       axios
-        .post<ManwhaInfo>("http://127.0.0.1:9000/api/get-chapters", json, {
+        .post<ManwhaInfo>("http://127.0.0.1:8000/api/get-chapters", json, {
           headers: { "Content-Type": "application/json" },
         })
         .then((res) => {
