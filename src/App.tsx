@@ -22,8 +22,19 @@ const App = () => {
     setPage(page);
     navigate(page);
   };
+
+  const changeUserID = (userID: number) => {
+    setUserID(userID);
+    localStorage.setItem("userID", JSON.stringify(userID));
+  };
+
   if (userID === -1) {
-    return <Login setUserID={setUserID} />;
+    const id = localStorage.getItem("userID");
+    if (id !== null) {
+      setUserID(JSON.parse(id)?.userID);
+    } else {
+      return <Login setUserID={changeUserID} />;
+    }
   }
   return (
     <Grid
