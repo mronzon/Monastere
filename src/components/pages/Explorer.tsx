@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Manwha from "../../data/manwha";
 import ManwhaGrid from "../MainDisplay/ManwhaDisplay/ManwhaGrid";
 import { useNavigate } from "react-router-dom";
-import { Box, Heading } from "@chakra-ui/react";
+import { AbsoluteCenter, Box, Heading, Spinner } from "@chakra-ui/react";
 import {
   Accordion,
   AccordionItem,
@@ -27,42 +27,36 @@ const Explorer = ({ searchText }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (manwhas.length !== 0) {
+    const json = JSON.stringify({ querry: searchText });
+    if (searchText === "" || searchText === undefined) {
       return;
     }
-    const elt = localStorage.getItem("manwhas");
-    if (elt !== null) {
-      setManwhas(JSON.parse(elt));
-      console.log(JSON.parse(elt));
-      setLoading(false);
-    } else {
-      setLoading(true);
-      axios
-        .get("http://127.0.0.1:8000/api/get-manwha", {
-          headers: { "Content-Type": "application/json" },
-        })
-        .then((res) => {
-          setLoading(false);
-          setManwhas(res.data);
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (manwhas.length !== 0) {
-      localStorage.setItem("manwhas", JSON.stringify(manwhas));
-    }
-  }, [manwhas]);
+    setLoading(true);
+    axios
+      .post("http://127.0.0.1:8000/api/search/manwhas", json, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        setLoading(false);
+        setManwhas(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [searchText]);
 
   const viewManwha = (manwha: Manwha) => {
     localStorage.setItem("showManwha", JSON.stringify(manwha));
     navigate("/simpleManwha");
   };
   console.log(searchText);
+  if (loading)
+    return (
+      <AbsoluteCenter axis="both">
+        <Spinner size="xl" />
+      </AbsoluteCenter>
+    );
   return (
     <Accordion allowMultiple>
       {manwhas.map((item, index) => (

@@ -1,4 +1,6 @@
 import { Card, CardBody, Heading, Box, Circle, Image } from "@chakra-ui/react";
+import { FaBookBookmark } from "react-icons/fa6";
+
 import Manwha from "../../../data/manwha";
 
 interface Props {
@@ -22,6 +24,19 @@ const ManwhaCard = ({ manwha, onClick }: Props) => {
         >
           {"‎ " + manwha.chapter + " ‎"}
         </Circle>
+        {manwha.liked && (
+          <Circle
+            top="2"
+            right="2"
+            position="absolute"
+            float="right"
+            bg="red"
+            color="white"
+            size={7}
+          >
+            <FaBookBookmark />
+          </Circle>
+        )}
         <CardBody>
           <Heading fontSize="md">{manwha.name}</Heading>
         </CardBody>
