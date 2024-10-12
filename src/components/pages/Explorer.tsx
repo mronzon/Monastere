@@ -30,29 +30,41 @@ interface Props {
 }
 
 const Explorer = ({ searchText }: Props) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [manwhas, setManwhas] = useState<DataManwha[]>([]);
   const dispatch: AppDispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     const json = JSON.stringify({ querry: searchText });
-    if (searchText === "" || searchText === undefined) {
-      return;
-    }
     setLoading(true);
-    axios
-      .post("http://127.0.0.1:8000/api/search/manwhas", json, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((res) => {
-        setLoading(false);
-        setManwhas(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (searchText === "" || searchText === undefined) {
+      axios
+        .post("http://127.0.0.1:8000/api/search/sources", {
+          headers: { "Content-Type": "application/json" },
+        })
+        .then((res) => {
+          setLoading(false);
+          setManwhas(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .post("http://127.0.0.1:8000/api/search/manwhas", json, {
+          headers: { "Content-Type": "application/json" },
+        })
+        .then((res) => {
+          setLoading(false);
+          setManwhas(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [searchText]);
 
   const viewManwha = (manwha: Manwha, source: string) => {
