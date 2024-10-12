@@ -11,6 +11,14 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
+import { AppDispatch } from "../../store";
+import {
+  updateImage,
+  updateLink,
+  updateName,
+  updateSource,
+} from "../../data/redux/manwhaSoloSlice";
+import { useAppDispatch } from "../../hooks/hookStore";
 
 interface DataManwha {
   source: string;
@@ -24,6 +32,7 @@ interface Props {
 const Explorer = ({ searchText }: Props) => {
   const [loading, setLoading] = useState(true);
   const [manwhas, setManwhas] = useState<DataManwha[]>([]);
+  const dispatch: AppDispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,8 +55,11 @@ const Explorer = ({ searchText }: Props) => {
       });
   }, [searchText]);
 
-  const viewManwha = (manwha: Manwha) => {
-    localStorage.setItem("showManwha", JSON.stringify(manwha));
+  const viewManwha = (manwha: Manwha, source: string) => {
+    dispatch(updateName(manwha.name));
+    dispatch(updateImage(manwha.image));
+    dispatch(updateLink(manwha.link));
+    dispatch(updateSource(source));
     navigate("/simpleManwha");
   };
   console.log(searchText);
@@ -75,6 +87,7 @@ const Explorer = ({ searchText }: Props) => {
               loading={loading}
               data={item.data}
               showManwha={viewManwha}
+              source={item.source}
             />
           </AccordionPanel>
         </AccordionItem>

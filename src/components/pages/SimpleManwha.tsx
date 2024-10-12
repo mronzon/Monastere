@@ -10,38 +10,37 @@ import {
   AbsoluteCenter,
   Spinner,
 } from "@chakra-ui/react";
-import Manwha from "../../data/manwha";
+import { ManwhaState } from "../../data/redux/manwhaSoloSlice";
 import ManwhaInfo from "../../data/manwhaInfo";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hookStore";
+import { RootState } from "../../store";
 
 const SimpleManwha = () => {
+  const elt = useAppSelector((state: RootState) => state.manwha);
   const [manwhaInfo, setManwhaInfo] = useState<ManwhaInfo>();
-  const [manwha, setManwha] = useState<Manwha>();
+  const [manwha, setManwha] = useState<ManwhaState>(elt);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const elt = localStorage.getItem("showManwha");
-    if (elt !== null) {
-      setManwha(JSON.parse(elt));
-      const m = JSON.parse(elt);
-      const json = JSON.stringify({
-        url: m?.link,
+    const json = JSON.stringify({
+      link: manwha.link,
+      source: manwha.source,
+    });
+    axios
+      .post<ManwhaInfo>("http://127.0.0.1:8000/api/search/chapters", json, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        setManwhaInfo(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      axios
-        .post<ManwhaInfo>("http://127.0.0.1:8000/api/get-chapters", json, {
-          headers: { "Content-Type": "application/json" },
-        })
-        .then((res) => {
-          setManwhaInfo(res.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
   }, []);
 
   const viewChapter = (chapter: string, number: string) => {
